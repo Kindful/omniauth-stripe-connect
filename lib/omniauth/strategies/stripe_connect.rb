@@ -85,7 +85,7 @@ module OmniAuth
 
       def request_phase
         stripe_client = client
-        stripe_client.options[:authorize_url] = "/express/oauth/authorize" if options[:stripe_express]
+        stripe_client.options[:authorize_url] = "/express/oauth/authorize" if options[:stripe_express] || (authorize_params['stripe_express'] == 'true')
 
         redirect stripe_client.auth_code.authorize_url(authorize_params)
       end
