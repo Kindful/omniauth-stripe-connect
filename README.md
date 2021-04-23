@@ -71,6 +71,20 @@ Then you can hit `/auth/stripe_connect`
 
 If you hit `/auth/stripe_connect` with any query params, they will be passed along to Stripe. You can access these params from `request.env['omniauth.params']`. Read [Stripe's OAuth Reference](https://stripe.com/docs/connect/reference) for more information.
 
+### Stripe Connect Express
+
+Stripe Connect Express accounts are supported by declaring the `stripe_express` and `suggested_capabilities` params (devise example):
+
+```ruby
+config.omniauth :stripe_connect, "STRIPE_CONNECT_CLIENT_ID", "STRIPE_SECRET", stripe_express: true, suggested_capabilities: ['transfers']
+```
+
+If you need to to support both Standard and Express accounts in the same project you also have the option of setting these paramters using the omniauth url helper:
+
+```ruby
+<%= link_to 'Authorize Stripe Connect', user_stripe_connect_omniauth_authorize_path(redirect_uri: user_stripe_connect_omniauth_callback_url, stripe_express: true, suggested_capabilities: ['transfers']) %>
+```
+
 ## Auth Hash
 
 Here is an example of the Auth Hash you get back from calling `request.env['omniauth.auth']`:
